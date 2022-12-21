@@ -19,7 +19,7 @@ namespace WebAppTask.Models.DataSeed
                 {
                     return;   // DB has been seeded
                 }
-                context.Product.AddRange(
+                /*context.Product.AddRange(
                     new Product
                     {
                         ProductName = "Hdd 1",
@@ -48,7 +48,7 @@ namespace WebAppTask.Models.DataSeed
                         PriceForPiece = 53,
                         PvnPrice = 12,
                     }
-                );
+                );*/
                 context.SaveChanges();
             }
         }

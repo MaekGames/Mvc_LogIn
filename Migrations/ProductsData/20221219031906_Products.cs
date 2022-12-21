@@ -2,10 +2,10 @@
 
 #nullable disable
 
-namespace WebAppTask.Migrations
+namespace WebAppTask.Migrations.ProductsData
 {
     /// <inheritdoc />
-    public partial class product : Migration
+    public partial class Products : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -14,7 +14,8 @@ namespace WebAppTask.Migrations
                 name: "Product",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ProductName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Count = table.Column<int>(type: "int", nullable: false),
                     PriceForPiece = table.Column<int>(type: "Decimal", nullable: false)

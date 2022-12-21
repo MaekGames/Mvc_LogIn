@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebAppTask.Models;
@@ -28,9 +29,15 @@ namespace WebAppTask.Controllers
             if (!ModelState.IsValid)
                 return View(model);
             var result = await _authService.LoginAsync(model);
+            if (result.StatusCode == 2)
+            {
+                HttpContext.Session.SetString("username", model.Username);
+                return RedirectToAction("Index", "Products");
+            }
             if (result.StatusCode == 1)
             {
-                return RedirectToAction("Index", "Products");
+                HttpContext.Session.SetString("username", model.Username);
+                return RedirectToAction("UserView", "Products");
             }
             else
             {
@@ -59,20 +66,27 @@ namespace WebAppTask.Controllers
         public async Task<IActionResult> Logout()
         {
             await this._authService.LogoutAsync();
+            HttpContext.Session.Remove("username");
+
             return RedirectToAction(nameof(Login));
         }
 
-
-        /*[AllowAnonymous]
-        public async Task<IActionResult> RegisterAdmin()
+        public IActionResult RegisterAdmin()
         {
-            RegistrationModel model = new RegistrationModel
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> RegisterAdmin(RegistrationModel model)
+        {
+            model = new RegistrationModel
             {
-                Username="admin",
+                Username="ad",
                 Email="admin@gmail.com",
                 FirstName="John",
                 LastName="Doe",
-                Password="Admin@12345#"
+                Password="Unitytest1!"
             };
             model.Role = "admin";
             var result = await this._authService.RegisterAsync(model);
@@ -87,7 +101,7 @@ namespace WebAppTask.Controllers
 
         //[Authorize]
         //[HttpPost]
-        public async Task<IActionResult> ChangePassword(ChangePasswordModel model)
+        /*public async Task<IActionResult> ChangePassword(ChangePasswordModel model)
         {
             if (!ModelState.IsValid)
                 return View(model);

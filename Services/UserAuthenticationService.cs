@@ -89,16 +89,25 @@ namespace WebAppTask.Services
                 {
                     var userRoles = await userManager.GetRolesAsync(user);
                     var authClaims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, user.UserName),
-                };
+                    {
+                        new Claim(ClaimTypes.Name, user.UserName),
+                    };
 
                     foreach (var userRole in userRoles)
                     {
                         authClaims.Add(new Claim(ClaimTypes.Role, userRole));
                     }
                     status.StatusCode = 1;
-                    status.Message = "Logged in successfully";
+                    if (authClaims[1].Value == "admin")
+                    {
+                        status.Message = "Logged in as admin";
+                        status.StatusCode = 2;
+                    }
+                    else
+                    {
+                        status.Message = "Logged in successfully";
+                        status.StatusCode = 1;
+                    }
                 }
                 else if (signInResult.IsLockedOut)
                 {

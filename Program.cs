@@ -7,6 +7,8 @@ using WebAppTask.Models.Database;
 using WebAppTask.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<AuditReadContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("AuditReadContext") ?? throw new InvalidOperationException("Connection string 'AuditReadContext' not found.")));
 builder.Services.AddDbContext<AuditContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("AuditContext") ?? throw new InvalidOperationException("Connection string 'AuditContext' not found.")));
 builder.Services.AddDbContext<ProductsDataContext>(options =>
@@ -25,10 +27,11 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<DatabaseContext>()
     .AddDefaultTokenProviders();
 
-builder.Services.ConfigureApplicationCookie(options => options.LoginPath = "/UserAuthentication/Login");
+builder.Services.ConfigureApplicationCookie(options => options.LoginPath = "/Login");
 
 //add services to container
 builder.Services.AddScoped<IUserAuthenticationService, UserAuthenticationService>();
+builder.Services.AddSession();
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
@@ -47,7 +50,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseSession();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();

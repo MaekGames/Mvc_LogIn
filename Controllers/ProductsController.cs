@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -15,15 +17,15 @@ namespace WebAppTask.Controllers
     public class ProductsController : Controller
     {
         private readonly ProductsDataContext _context;
-        private readonly IPvnFormula _pvnService;
+        //private readonly IPvnFormula _pvnService;
 
-        public ProductsController(ProductsDataContext context, IPvnFormula pvnService)
+        public ProductsController(ProductsDataContext context)
         {
             _context = context;
-            _pvnService = pvnService;
+            //_pvnService = pvnService;
         }
 
-
+       // [Authorize(Roles = "admin")]
         // GET: Products
         public async Task<IActionResult> Index()
         {
@@ -37,6 +39,21 @@ namespace WebAppTask.Controllers
 
             return View(await products.ToListAsync());
         }
+        // GET: Products
+        public async Task<IActionResult> UserView()
+        {
+            if (_context.Product == null)
+            {
+                return Problem("Entity set 'MvcMovieContext.Movie'  is null.");
+            }
+
+            var products = from m in _context.Product
+                           select m;
+
+            ViewBag.username = HttpContext.Session.GetString("username");
+            return View(await products.ToListAsync());
+        }
+
 
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)

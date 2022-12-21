@@ -4,7 +4,7 @@ using System.Data;
 
 namespace WebAppTask.Controllers
 {
-    [Authorize(Roles = "admin")]
+    //[Authorize(Roles = "admin")]
     public class AdminController : Controller
     {
         public IActionResult Display()

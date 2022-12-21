@@ -3,75 +3,59 @@
 @{
     ViewData["Title"] = "Index";
 }
-
+<style>
+    .div {
+        float:right;
+        width:100%;
+    }
+</style>
 <h1>Index</h1>
+<link href="/css/bootstrap.min.css" rel="stylesheet" />
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+<div class="float-left">
+    <table class="table table-striped table-dark float-left">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.UserId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Type)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TableName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OldValues)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NewValues)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AffectedColumns)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PrimaryKey)
-            </th>
-            <th></th>
+            <th scope="col">@Html.DisplayNameFor(model => model.UserId)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.Type)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.TableName)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.DateTime)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.OldValues)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.NewValues)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.AffectedColumns)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.PrimaryKey)</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TableName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OldValues)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NewValues)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AffectedColumns)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PrimaryKey)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TableName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OldValues)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NewValues)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AffectedColumns)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PrimaryKey)
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+</div>

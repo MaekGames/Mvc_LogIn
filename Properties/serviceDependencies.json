@@ -11,6 +11,10 @@
     "mssql3": {
       "type": "mssql",
       "connectionId": "ConnectionStrings:AuditContext"
+    },
+    "mssql4": {
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:AuditReadContext"
     }
   }
 }

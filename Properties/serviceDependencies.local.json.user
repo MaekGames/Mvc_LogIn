@@ -8,6 +8,10 @@
       "restored": true,
       "restoreTime": "2022-12-17T02:59:55.8359123Z"
     },
+    "mssql4": {
+      "restored": true,
+      "restoreTime": "2022-12-21T18:26:49.2830978Z"
+    },
     "mssql1": {
       "restored": true,
       "restoreTime": "2022-12-13T00:53:33.931317Z"
